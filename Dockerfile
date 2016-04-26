@@ -19,9 +19,10 @@ run	pip install --install-option="--prefix=/var/lib/graphite" --install-option="
 run	pip install --install-option="--prefix=/var/lib/graphite" --install-option="--install-lib=/var/lib/graphite/webapp" graphite-web
 
 # grafana
-run     cd ~ &&\
-	wget https://grafanarel.s3.amazonaws.com/builds/grafana_2.6.0_amd64.deb &&\
-        dpkg -i grafana_2.6.0_amd64.deb && rm grafana_2.6.0_amd64.deb
+run cd ~ && \
+	wget https://grafanarel.s3.amazonaws.com/builds/grafana_3.0.0-beta51460725904_amd64.deb && \
+    dpkg -i grafana_3.0.0-beta51460725904_amd64.deb && \
+	rm grafana_3.0.0-beta51460725904_amd64.deb
 
 # statsd
 add	./statsd/config.js /src/statsd/config.js
@@ -34,6 +35,8 @@ add	./graphite/storage-schemas.conf /var/lib/graphite/conf/storage-schemas.conf
 add	./graphite/storage-aggregation.conf /var/lib/graphite/conf/storage-aggregation.conf
 
 add     ./grafana/config.ini /etc/grafana/config.ini
+copy    ./grafana/grafana.crt /data/certs/grafana.crt
+copy    ./grafana/grafana.key /data/certs/grafana.key
 
 # Add system service config
 add	./nginx/nginx.conf /etc/nginx/nginx.conf
